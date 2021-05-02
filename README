@@ -1,0 +1,26 @@
+# Esse projeto é uma prova de conceito de um BOT para o Mattermost que:
+- Se conecta numa instância de Mattermost
+- Recebe imagens via mensagem direta
+- Transforma essas imagens em preto e branco para minimizar ruídos
+- Executa o Tesseract para extrair o resultado do OCR
+- E devolve o texto numa mensagem para o interlocutor
+
+Há muito o que fazer, como por exemplo, fazer um parser para separar dados estruturados presentes na imagem, como 
+numeros de telefone, datas, URL e tags para tentar identificar a forma exibida, mas isso fica para vocês.
+
+** Dicas simpels para execução
+
+``git clone https://github.com/ginglass/mmocrbot.git
+cd mmocrbot``
+
+# Ajuste as variáveis de ambiente de acordo com sua instalação (é preciso criar no Mattermost uma conta de BOT)
+# O ajuste pode ser feito direto no docker-compose.yml ou por outro método mais seguro para evitar a exposição do access_token:
+
+MM_API_KEY = access_token que é apresentado na criação do BOT no Mattermost (não é o id_token e só fica visível na criação do BOT)
+MM_URL = URL base da API do Mattermost, por exemplo *https://sitexemplo.com/api*
+MM_WEBSOCKET_URL = URL para a API do WEBSOCKET, por exemplo: *wss://sitexemplo.com/api/v4/websocket* 
+
+Opcional:
+Se utiliza integração contínua em um GitLab próprio, basta configurar o runner no projeto e adicionar essas vriáveis nas configurações de CI do projeto
+Não esqueça de escapar as "/" e de definir a variável com a chave da API no modo protected. Os commits para o branch master nesse projeto irão instanciar 
+uma nova versão do docker automaticamente (nome do container docker: matetrmostbot)
