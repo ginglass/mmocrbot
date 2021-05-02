@@ -1,0 +1,15 @@
+# ./docker-compose.yml
+version: '3'
+services:
+  app:
+    build: .
+    container_name: mattermostbot
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./app/:/opt/app/
+    environment:
+      MM_URL: mmURL
+      MM_API_KEY: mmAPIKey
+      MM_WEBSOCKET_URL: mmWebsocketURL
+    entrypoint: ["python", "/opt/app/bot.py"]
