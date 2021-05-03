@@ -26,6 +26,8 @@ except ImportError:
 mmURL = os.getenv('MM_URL')
 mmAPIKey = os.getenv("MM_API_KEY")
 mmWebsocketURL = os.getenv("MM_WEBSOCKET_URL")
+language = os.getenv("TLANG")
+tesseract_conf = os.getenv("TESERACT_CONF")
 debug = True
 
 #Conecta no servidor
@@ -33,7 +35,8 @@ mm = mattermost.MMApi(mmURL)
 mm.login(bearer=mmAPIKey)
 
 #Define configuracoes do tesseract
-custom_oem_psm_config = r'--oem 1 --psm 12'
+#custom_oem_psm_config = r'--oem 1 --psm 12'
+custom_oem_psm_config = tesseract_conf
 
 def on_message(ws, message):
     msgobj = json.loads(message)
@@ -57,7 +60,7 @@ def on_message(ws, message):
                #gray =  cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV|cv2.THRESH_OTSU,3,0)
                cv2.imwrite(filename, gray)
                # Converte a imagem tratada em texto
-               mensagem = pytesseract.image_to_string(Image.open(filename), lang='eng',config=custom_oem_psm_config)
+               mensagem = pytesseract.image_to_string(Image.open(filename), lang=language,config=custom_oem_psm_config)
                if (debug): 
                   print("MENSAGEM "+mensagem)
                # monta a resposta para o interlocutor

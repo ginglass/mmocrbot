@@ -12,4 +12,6 @@ services:
       MM_URL: mmURL
       MM_API_KEY: mmAPIKey
       MM_WEBSOCKET_URL: mmWebsocketURL
+      TLANG: port
+      TCONFIG: r'--oem 1 --psm 12'
     entrypoint: ["python", "/opt/app/bot.py"]
