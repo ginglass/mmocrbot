@@ -24,6 +24,7 @@ except ImportError:
 # Pegas as variáveis de acesso do ambiente
 
 mmURL = os.getenv('MM_URL')
+mmHost = os.getenv('MM_HOST')
 mmAPIKey = os.getenv("MM_API_KEY")
 mmWebsocketURL = os.getenv("MM_WEBSOCKET_URL")
 language = os.getenv("TLANG")
@@ -80,7 +81,7 @@ def on_close(ws):
 
 if __name__ == "__main__":
     websocket.enableTrace(True)
-    header = [ "Authorization: Bearer "+mmAPIKey, "Origin: mm.ginglass.com.br" ]
+    header = [ "Authorization: Bearer "+mmAPIKey, "Origin: "+mmHost ]
     ws = websocket.WebSocketApp(mmWebsocketURL,
                               header = header,
                               on_message = on_message,
