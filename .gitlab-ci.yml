@@ -2,6 +2,7 @@ deployjob:
    stage: deploy
    script:
         - sed -i s/mmURL/${MM_URL}/ docker-compose.yml
+        - sed -i s/mmURL/${MM_HOST}/ docker-compose.yml
         - sed -i s/mmAPIKey/${MM_API_KEY}/ docker-compose.yml
         - sed -i s/mmWebsocketURL/${MM_WEBSOCKET_URL}/ docker-compose.yml
         - docker-compose stop
